@@ -10,7 +10,7 @@ def pascal_triangle(n):
     """
     tri = []
     tmp = [1]
-    if n == 0:
+    if n <= 0:
         return tri
 
     for i in range(n):
