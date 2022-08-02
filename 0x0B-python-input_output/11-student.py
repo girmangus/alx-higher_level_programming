@@ -1,37 +1,30 @@
 #!/usr/bin/python3
 """
-This module creates a student class
-with public attributes and replaces
-attributes of student instances using
-Json
+Student Class
 """
 
 
 class Student:
     """
-    student class with public instances
+    attributes:
+        - first_name
+        - last_name
+        - age
     """
     def __init__(self, first_name, last_name, age):
-        """
-        instantiation of attr
-        """
         self.first_name = first_name
         self.last_name = last_name
         self.age = age
 
     def to_json(self, attrs=None):
-        """
-        function returns dict repres
-        of instance
-        """
         if attrs is None:
-            return (self.__dict__)
-        return ({key: value for key, value in self.__dict__.items()
-                 if key in attrs})
+            return self.__dict__
+        dic = {}
+        for key in attrs:
+            if key in self.__dict__:
+                dic[key] = self.__dict__[key]
+        return dic
 
     def reload_from_json(self, json):
-        """
-        function that replaces all attrb of the
-        student instance
-        """
-        self.__dict__.update(json)
+        for i in json:
+            self.__dict__[i] = json[i]
