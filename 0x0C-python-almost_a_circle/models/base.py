@@ -19,11 +19,10 @@ class Base:
 
     @staticmethod
     def to_json_string(list_dictionaries):
-        """Returns the JSON string representation of list_dictionaries"""
-        if list_dictionaries is None:
+        """ List to JSON string """
+        if list_dictionaries is None or list_dictionaries == "[]":
             return "[]"
-        else:
-            return json.dumps(list_dictionaries)
+        return json.dumps(list_dictionaries)
 
     @classmethod
     def save_to_file(cls, list_objs):
@@ -135,39 +134,3 @@ class Base:
             list_ins.append(cls.create(**matrix[index]))
 
         return list_ins
-
-    @staticmethod
-    def draw(list_rectangles, list_squares):
-        '''Opens a window and draws all the Rectangles and Squares'''
-
-        import turtle
-        import time
-        from random import randrange
-
-        t = turtle.Turtle()
-        position = t.position()
-        t.color("orange")
-        turtle.Screen().colormode(255)
-        t.shape("turtle")
-        t.pensize(2)
-        t.fillcolor("purple")
-
-        for o in (list_rectangles + list_squares):
-            t.setposition(0, 0)
-            t.color((randrange(255), randrange(255), randrange(255)))
-            Base.drawRect(t, o)
-            time.sleep(2)
-        time.sleep(10)
-
-    @staticmethod
-    def drawRect(t, rect):
-        t.setposition(rect.x, rect.y)
-        t.forward(rect.width)
-        t.left(90)
-        t.forward(rect.height)
-        t.left(90)
-        t.forward(rect.width)
-        t.left(90)
-        t.forward(rect.height)
-        t.left(90)
-
