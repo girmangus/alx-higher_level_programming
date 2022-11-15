@@ -1,17 +1,28 @@
 #!/usr/bin/node
-// script that gets the contents of a webpage and stores it in a file.
+// script that prints all characters of a Star Wars movie
+const request = require('request');
+const argv = process.argv;
+const url = `https://swapi-api.hbtn.io/api/films/${argv[2]}/`;
 
-const url = process.argv[2];
-const file = process.argv[3];
-const req = require('request');
-const fileStream = require('fs');
-
-req(url, function (error, response, body) {
+request.get(url, function (error, response, body) {
   if (error) {
     console.log(error);
   } else {
-    fileStream.writeFile(file, body, 'utf-8', (error) => {
-      if (error) console.log(error);
-    });
+    const role = JSON.parse(body).characters;
+    print(role, 0);
   }
 });
+
+function print (array, j) {
+  if (j >= array.length) {
+    return;
+  }
+  request.get(array[j], function (error, response, body) {
+    if (error) {
+      console.log(error);
+    } else {
+      console.log(JSON.parse(body).name);
+    }
+    return print(array, j + 1);
+  });
+}
